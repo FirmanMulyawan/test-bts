@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllChecklists, createChecklist, deleteChecklist } from "../api/api";
+import { getAllChecklists, createChecklist, deleteChecklist, renameChecklistItem } from "../api/api";
 
 const Home = () => {
   const [checklists, setChecklists] = useState([]);
@@ -95,7 +95,7 @@ const Home = () => {
                       <button
                         onClick={async () => {
                           try {
-                            await renameChecklist(item.id, editValue);
+                            await renameChecklistItem(item.id, editValue);
                             setEditingId(null);
                             fetchChecklists();
                           } catch {
