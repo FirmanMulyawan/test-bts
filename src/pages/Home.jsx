@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { getAllChecklists, createChecklist, deleteChecklist, renameChecklistItem } from "../api/api";
+import {
+  getAllChecklists,
+  createChecklist,
+  deleteChecklist,
+  renameChecklist,
+} from "../api/api";
 
 const Home = () => {
   const [checklists, setChecklists] = useState([]);
@@ -47,6 +52,15 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
+      <button
+        onClick={() => {
+          localStorage.removeItem("token");
+          window.location.href = "/auth";
+        }}
+        className="text-sm text-red-600 hover:underline absolute top-4 right-6"
+      >
+        Logout
+      </button>
       <div className="max-w-xl mx-auto bg-white rounded-xl shadow-md p-6">
         <h1 className="text-2xl font-bold mb-4">📋 To-do List</h1>
 
@@ -95,7 +109,7 @@ const Home = () => {
                       <button
                         onClick={async () => {
                           try {
-                            await renameChecklistItem(item.id, editValue);
+                            await renameChecklist(item.id, editValue);
                             setEditingId(null);
                             fetchChecklists();
                           } catch {
